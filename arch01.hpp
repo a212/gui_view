@@ -3,9 +3,7 @@ class Gui;
 
 class GuiScreen {
 	public:
-	protected:
-		Gui* _gui;
-		GuiScreen(Gui* gui): _gui(gui) {}
+		virtual void print() = 0;
 };
 
 struct ScreenInst {
@@ -17,10 +15,11 @@ struct ScreenInst {
 
 template <typename T>
 class Screen : GuiScreen, T {
-	public:
-		Screen(Gui* gui): GuiScreen(gui) {}
-	protected:
+		Gui* _gui;
 		static ScreenInst _inst;
+	public:
+		Screen(Gui* gui): _gui(gui) {}
+		void print() override;
 };
 
 class Gui {

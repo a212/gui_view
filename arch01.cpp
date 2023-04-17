@@ -12,6 +12,7 @@ void Gui::printScreens()
 	auto p = _scrFirst;
 	while (p) {
 		auto t = p->_fn(this);
+		t->print();
 		p = p->_next;
 	}
 }

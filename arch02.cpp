@@ -1,10 +1,10 @@
 #include "arch01.hpp"
 
+#include <stdio.h>
+
 namespace {
 	struct Data {
-		void print() {
-		}
-		int d;
+		int d = 42;
 	};
 }
 
@@ -12,3 +12,8 @@ template<>
 ScreenInst Screen<Data>::_inst([](auto gui) {
 	return (GuiScreen*)new Screen<Data>(gui);
 });
+
+template<>
+void Screen<Data>::print() {
+	printf("02: %d %d\n", _gui->i, d);
+}
