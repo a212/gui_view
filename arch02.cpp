@@ -12,9 +12,9 @@ namespace {
 template<>
 ScreenInst Screen<Data>::_inst([](auto gui) {
 	return (GuiScreen*)new Screen<Data>(gui);
-});
+}, 2);
 
 template<>
-void Screen<Data>::print() {
+void Screen<Data>::draw() {
 	printf("02: %d %d\n", _gui->i, d);
 }
