@@ -1,5 +1,7 @@
 #include "arch01.hpp"
 
+#include <memory>
+
 ScreenInst::ScreenInst(Fn fn)
 {
 	_next = Gui::_scrFirst;
@@ -11,7 +13,7 @@ void Gui::printScreens()
 {
 	auto p = _scrFirst;
 	while (p) {
-		auto t = p->_fn(this);
+		std::unique_ptr<GuiScreen> t(p->_fn(this));
 		t->print();
 		p = p->_next;
 	}

@@ -5,6 +5,7 @@
 namespace {
 	struct Data {
 		int d = 42;
+		~Data() { printf("02: destructor\n"); }
 	};
 }
 

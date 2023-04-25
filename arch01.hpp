@@ -3,10 +3,14 @@ class Gui;
 
 class GuiScreen {
 	public:
-		virtual void print() = 0;
+		Gui* _gui;
+		GuiScreen(Gui* gui) { _gui = gui; }
+		virtual ~GuiScreen() {}
+		virtual void print() {}
 };
 
-struct ScreenInst {
+class ScreenInst {
+	public:
 	ScreenInst* _next;
 	typedef GuiScreen* (*Fn)(Gui* _gui);
 	Fn _fn;
@@ -15,10 +19,9 @@ struct ScreenInst {
 
 template <typename T>
 class Screen : GuiScreen, T {
-		Gui* _gui;
 		static ScreenInst _inst;
 	public:
-		Screen(Gui* gui): _gui(gui) {}
+		Screen(Gui* gui): GuiScreen(gui) {}
 		void print() override;
 };
 
