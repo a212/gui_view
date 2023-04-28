@@ -4,40 +4,47 @@ class Gui;
 class GuiScreen {
 	protected:
 		Gui* _gui;
-	public:
-		GuiScreen(Gui* gui): _gui(gui) {}
-		virtual ~GuiScreen() {}
-		virtual void draw() = 0;
-};
-
-class ScreenInst {
-	public:
-		using Fn = GuiScreen* (*)(Gui* _gui);
-		ScreenInst(Fn fn, int id);
-	protected:
 		friend class Gui;
-		ScreenInst* _next;
-		int _id;
-		Fn _fn;
-};
-
-template <typename T>
-class Screen : GuiScreen, T {
-		static ScreenInst _inst;
+		class Inst {
+			public:
+				using Fn = GuiScreen* (*)(Gui* _gui);
+				Inst(Fn fn, int id);
+			protected:
+				friend class Gui;
+				Inst* _next;
+				int _id;
+				Fn _fn;
+		};
 	public:
-		Screen(Gui* gui): GuiScreen(gui) {}
-		void draw() override;
+		template <typename T, int id>
+		static auto createInst() {
+			return Inst([](Gui* gui) {
+				return (GuiScreen*)new T(gui);
+			}, id);
+		}
+		GuiScreen(Gui* gui): _gui(gui) {}
+		union InitParam {
+			enum Enum {
+				None,
+			} flags;
+			int iVal;
+			InitParam(int i) { iVal = i; }
+			InitParam(Enum e) { flags = e; }
+		};
+		virtual ~GuiScreen() {}
+		virtual bool init(InitParam)  { return true; }
+		virtual void top()   {}
+		virtual void draw()  {}
+		virtual void input() {}
+		virtual void back()  {}
 };
 
 class Gui {
 	public:
-		void switchScreen(int id);
+		void switchScreen(int id, GuiScreen::InitParam param = 0);
 	protected:
 		int i = 10;
 
-		template <typename T>
-		friend class Screen;
-		friend class ScreenInst;
-		inline static ScreenInst* _scrFirst = nullptr;
+		friend class GuiScreen::Inst;
+		inline static GuiScreen::Inst* _scrFirst = nullptr;
 };
-
