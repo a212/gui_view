@@ -1,11 +1,11 @@
-#include "arch01.hpp"
+#include "gui.hpp"
 #include <stdio.h>
 
 namespace {
-	class Scr: GuiScreen {
+	class View: GuiView {
 		static Inst _inst;
 	public:
-		Scr(Gui* gui): GuiScreen(gui)
+		View(Gui* gui): GuiView(gui)
 		{ printf("03: constructor\n"); }
 	protected:
 		int d = 33;
@@ -14,17 +14,16 @@ namespace {
 	};
 }
 
-GuiScreen::Inst Scr::_inst = createInst<Scr, 3>();
+GuiView::Inst View::_inst = createInst<View, 3>();
 
-bool Scr::init(InitParam param)
+bool View::init(InitParam param)
 {
 	if (param.flags & InitParam::None) {
 	}
 	return true;
 }
 
-void Scr::draw()
+void View::draw()
 {
 	printf("03: draw %d\n", d);
 }
-

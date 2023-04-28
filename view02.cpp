@@ -1,30 +1,29 @@
-#include "arch01.hpp"
+#include "gui.hpp"
 #include <stdio.h>
 
 namespace {
-	class Scr: GuiScreen {
+	class View: GuiView {
 		static Inst _inst;
 	public:
-		Scr(Gui* gui): GuiScreen(gui) {}
+		View(Gui* gui): GuiView(gui) {}
 	protected:
-		~Scr() { printf("02: destructor\n"); }
+		~View() { printf("02: destructor\n"); }
 		int d = 42;
 		bool init(InitParam) override;
 		void draw() override;
 	};
 }
 
-GuiScreen::Inst Scr::_inst = createInst<Scr, 2>();
+GuiView::Inst View::_inst = createInst<View, 2>();
 
-bool Scr::init(InitParam param)
+bool View::init(InitParam param)
 {
 	if (param.flags & InitParam::None) {
 	}
 	return true;
 }
 
-void Scr::draw()
+void View::draw()
 {
 	printf("02: draw %d\n", d);
 }
-
