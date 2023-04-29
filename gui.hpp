@@ -7,7 +7,7 @@ class Gui {
 	protected:
 		int i = 10;
 
-		friend class GuiView::Inst;
-		inline static GuiView::Inst* _scrFirst = nullptr;
+		friend class GuiViewInstSt;
+		inline static GuiViewInstSt* _views = nullptr;
 };
 

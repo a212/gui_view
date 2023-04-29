@@ -2,17 +2,17 @@
 
 #include <memory>
 
-GuiView::Inst::Inst(Fn fn, int id)
+GuiViewInstSt::GuiViewInstSt(Fn fn, int id)
 {
-	_next = Gui::_scrFirst;
-	Gui::_scrFirst = this;
+	_next = Gui::_views;
+	Gui::_views = this;
 	_id = id;
 	_fn = fn;
 }
 
 void Gui::switchView(int id, GuiView::InitParam param)
 {
-	auto p = _scrFirst;
+	auto p = _views;
 	while (p) {
 		if (p->_id == id) {
 			std::unique_ptr<GuiView> t(p->_fn(this));
