@@ -5,6 +5,10 @@ class GuiView {
 	protected:
 		Gui* _gui;
 	public:
+		enum Id {
+			v2 = 2,
+			v3,
+		};
 		GuiView(Gui* gui): _gui(gui) {}
 		union InitParam {
 			enum Enum {

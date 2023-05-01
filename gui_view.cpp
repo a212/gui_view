@@ -10,7 +10,7 @@ GuiViewInstSt::GuiViewInstSt(Fn fn, int id)
 	_fn = fn;
 }
 
-void Gui::switchView(int id, GuiView::InitParam param)
+void Gui::switchView(GuiView::Id id, GuiView::InitParam param)
 {
 	auto p = _views;
 	while (p) {
@@ -27,6 +27,5 @@ void Gui::switchView(int id, GuiView::InitParam param)
 int main()
 {
 	Gui gui;
-	gui.switchView(2);
-	gui.switchView(3);
+	gui.switchView(GuiView::v2);
 }

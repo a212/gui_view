@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 namespace {
-	struct View: GuiViewInst<View, 3> {
+	struct View: GuiViewInst<View, GuiView::v3> {
 		View(Gui* gui): GuiViewInst(gui)
 		{ printf("%02d: constructor\n", getId()); }
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 namespace {
-	struct View: GuiViewInst<View, 2> {
+	struct View: GuiViewInst<View, GuiView::v2> {
 		using GuiViewInst::GuiViewInst;
 		~View() { printf("%02d: destructor\n", getId()); }
 
@@ -23,4 +23,5 @@ bool View::init(InitParam param)
 void View::draw()
 {
 	printf("%02d: draw %d\n", getId(), d);
+	_gui->switchView(v3);
 }
