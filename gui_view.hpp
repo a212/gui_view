@@ -17,10 +17,15 @@ class GuiView {
 			int iVal;
 			InitParam(int i) { iVal = i; }
 			InitParam(Enum e) { flags = e; }
-		};
+		} _initParam = 0;
 		virtual ~GuiView() {}
-		virtual int getId() { return 0; }
-		virtual bool init(InitParam)  { return true; }
+		virtual int getId() {
+			return 0;
+		}
+		virtual bool init(InitParam ip)  {
+			_initParam = ip;
+			return true;
+		}
 		virtual void top()   {}
 		virtual void draw()  {}
 		virtual void input() {}
