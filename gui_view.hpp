@@ -1,6 +1,9 @@
 
 class Gui;
 
+#define VIEW(id) struct View: GuiViewInst<View, id>
+#define CTOR View(Gui* gui): GuiViewInst(gui)
+
 class GuiView {
 	protected:
 		Gui* _gui;

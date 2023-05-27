@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 namespace {
-	struct View: GuiViewInst<View, 2> {
-		using GuiViewInst::GuiViewInst;
-		~View() { printf("%02d: destructor\n", getId()); }
+	VIEW(2) {
+		CTOR {}
+		~View() { printf("2 destructor\n"); }
 
 		void draw() override;
 	};
@@ -12,6 +12,6 @@ namespace {
 
 void View::draw()
 {
-	printf("%02d: draw %d\n", getId(), _gui->getModel().b);
+	printf("Hello from 2\n");
 	_gui->switchView3();
 }
